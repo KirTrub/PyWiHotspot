@@ -1,4 +1,4 @@
-# PyHotspot
+# PyHotspot (Vibecoded)
 GUI приложение для создания хот-спот
 ##  Особенности
 - **One-click Start**: Автоматическое создание и запуск Hotspot.
