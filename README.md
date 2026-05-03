@@ -33,7 +33,7 @@ paru -S pyhotspot
 Клонируйте репозиторий:
 
 ```bash
-git clone https://github.com/youruser/PyWiHotspot.git
+git clone https://github.com/youruser/PyHotspot.git
 cd PyWiHotspot
 chmod +x ./install.sh
 ./install.sh
