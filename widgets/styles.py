@@ -1,32 +1,42 @@
 COLORS = {
-    "bg_window":      "#0d1117",
-    "bg_panel":       "#161b22",
-    "bg_card":        "#1c2230",
-    "bg_input":       "#21262d",
-    "bg_hover":       "#2d333b",
-    "border":         "#30363d",
-    "border_focus":   "#58a6ff",
+    # ── Фоны ──────────────────────────────────────────────────────────
+    "bg_window":      "#080B10",   # глубокий чёрный, основной фон
+    "bg_panel":       "#0C1018",   # боковая панель
+    "bg_card":        "#0E1420",   # карточки / поверхности
+    "bg_input":       "#111827",   # поля ввода
+    "bg_hover":       "#1A2333",   # hover-состояния
+    "bg_status":      "#0A1510",   # фон карточки статуса (зелёный тинт)
 
-    "text_primary":   "#e6edf3",
-    "text_secondary": "#8b949e",
-    "text_muted":     "#484f58",
+    # ── Границы ───────────────────────────────────────────────────────
+    "border":         "#1A2030",   # базовая граница
+    "border_focus":   "#4A90E2",   # фокус / акцент синий
+    "border_success": "#1E3820",   # граница карточки статуса
 
-    "accent":         "#58a6ff",
-    "accent_hover":   "#79c0ff",
-    "accent_dim":     "#1f4068",
+    # ── Текст ─────────────────────────────────────────────────────────
+    "text_primary":   "#E2E8F4",
+    "text_secondary": "#5A7A9E",
+    "text_muted":     "#2D3D50",
 
-    "success":        "#3fb950",
-    "success_dim":    "#152a19",
-    "success_hover":  "#56d364",
-    "success_border": "#2ea043",
+    # ── Акцент (Download / синий) ──────────────────────────────────────
+    "accent":         "#4A90E2",
+    "accent_hover":   "#6AAEF5",
+    "accent_dim":     "#0D1E3A",
 
-    "danger":         "#f85149",
-    "danger_dim":     "#2d0f0e",
-    "danger_hover":   "#ff7b72",
-    "danger_border":  "#da3633",
+    # ── Успех (Upload / зелёный) ───────────────────────────────────────
+    "success":        "#2ECC71",
+    "success_dim":    "#0A1510",
+    "success_hover":  "#4ADE88",
+    "success_border": "#1E3820",
 
-    "warning":        "#e3b341",
-    "warning_dim":    "#2e220a",
+    # ── Опасность ─────────────────────────────────────────────────────
+    "danger":         "#E05050",
+    "danger_dim":     "#200A0A",
+    "danger_hover":   "#F07070",
+    "danger_border":  "#5A1A1A",
+
+    # ── Предупреждение ─────────────────────────────────────────────────
+    "warning":        "#E3B341",
+    "warning_dim":    "#1E1608",
 }
 
 C = COLORS
@@ -35,11 +45,7 @@ C = COLORS
 def get_stylesheet() -> str:
     return f"""
 
-/* ── Базовые ─────────────────────────────────────────────────────────── */
-
-* {{
-    box-sizing: border-box;
-}}
+/* ── Базовые ──────────────────────────────────────────────────────────── */
 
 QWidget {{
     background-color: {C['bg_window']};
@@ -54,18 +60,77 @@ QMainWindow {{
     background-color: {C['bg_window']};
 }}
 
-/* ── Левая панель ────────────────────────────────────────────────────── */
+/* ── Левая панель ─────────────────────────────────────────────────────── */
 
 QFrame#sidebar {{
     background-color: {C['bg_panel']};
     border-right: 1px solid {C['border']};
 }}
 
-/* ── Карточки ────────────────────────────────────────────────────────── */
+/* ── Логотип-бар ──────────────────────────────────────────────────────── */
+
+QFrame#logo_bar {{
+    background-color: {C['bg_panel']};
+    border-bottom: 1px solid {C['border']};
+    padding: 0 16px;
+    min-height: 54px;
+    max-height: 54px;
+}}
+
+QLabel#app_title {{
+    font-size: 14px;
+    font-weight: 600;
+    color: {C['text_primary']};
+    letter-spacing: 0.3px;
+    background: transparent;
+}}
+
+QFrame#logo_icon {{
+    background-color: #1A4FD8;
+    border-radius: 7px;
+    min-width: 30px;
+    max-width: 30px;
+    min-height: 30px;
+    max-height: 30px;
+}}
+
+/* ── Карточка статуса ────────────────────────────────────────────────── */
+
+QFrame#status_card {{
+    background-color: {C['bg_status']};
+    border: 1px solid {C['border_success']};
+    border-radius: 8px;
+    margin: 12px;
+    padding: 4px;
+}}
+
+QFrame#status_card_inactive {{
+    background-color: {C['bg_card']};
+    border: 1px solid {C['border']};
+    border-radius: 8px;
+    margin: 12px;
+    padding: 4px;
+}}
+
+/* ── Карточки ─────────────────────────────────────────────────────────── */
 
 QFrame#card {{
     background-color: {C['bg_card']};
     border: 1px solid {C['border']};
+    border-radius: 10px;
+}}
+
+QFrame#card_rx {{
+    background-color: {C['bg_card']};
+    border: 1px solid {C['border']};
+    border-left: 3px solid {C['accent']};
+    border-radius: 10px;
+}}
+
+QFrame#card_tx {{
+    background-color: {C['bg_card']};
+    border: 1px solid {C['border']};
+    border-left: 3px solid {C['success']};
     border-radius: 10px;
 }}
 
@@ -94,27 +159,20 @@ QFrame#separator {{
     border: none;
 }}
 
-/* ── Метки ───────────────────────────────────────────────────────────── */
+/* ── Метки ────────────────────────────────────────────────────────────── */
 
 QLabel {{
     background: transparent;
     color: {C['text_primary']};
 }}
 
-QLabel#app_title {{
-    font-size: 17px;
-    font-weight: 700;
-    color: {C['text_primary']};
-    letter-spacing: -0.3px;
-    background: transparent;
-}}
-
 QLabel#page_title {{
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 700;
-    color: {C['text_primary']};
-    letter-spacing: -0.5px;
+    color: {C['text_muted']};
+    letter-spacing: 1.5px;
     background: transparent;
+    text-transform: uppercase;
 }}
 
 QLabel#subtitle {{
@@ -124,45 +182,73 @@ QLabel#subtitle {{
 }}
 
 QLabel#section_header {{
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 9px;
+    font-weight: 700;
     color: {C['text_muted']};
-    letter-spacing: 1.2px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: transparent;
+    padding: 0 16px;
+}}
+
+QLabel#status_active {{
+    font-size: 11px;
+    font-weight: 700;
+    color: {C['success']};
+    letter-spacing: 1px;
     text-transform: uppercase;
     background: transparent;
 }}
 
-QLabel#status_active {{
-    font-size: 13px;
-    font-weight: 600;
-    color: {C['success']};
-    background: transparent;
-}}
-
 QLabel#status_inactive {{
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     color: {C['text_secondary']};
+    letter-spacing: 1px;
+    text-transform: uppercase;
     background: transparent;
 }}
 
 QLabel#status_busy {{
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     color: {C['warning']};
+    letter-spacing: 1px;
+    text-transform: uppercase;
     background: transparent;
 }}
 
 QLabel#big_value {{
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.5px;
+    font-family: "JetBrains Mono", "Cascadia Code", "Courier New", monospace;
+    background: transparent;
+}}
+
+QLabel#big_value_rx {{
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-family: "JetBrains Mono", "Cascadia Code", "Courier New", monospace;
+    color: {C['accent']};
+    background: transparent;
+}}
+
+QLabel#big_value_tx {{
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-family: "JetBrains Mono", "Cascadia Code", "Courier New", monospace;
+    color: {C['success']};
     background: transparent;
 }}
 
 QLabel#small_label {{
-    font-size: 11px;
-    color: {C['text_secondary']};
+    font-size: 10px;
+    color: {C['text_muted']};
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
     background: transparent;
 }}
 
@@ -170,23 +256,23 @@ QLabel#error_label {{
     color: {C['danger']};
     font-size: 12px;
     background: transparent;
-    padding: 4px 0px;
+    padding: 4px 0;
 }}
 
 QLabel#info_key {{
-    font-size: 12px;
+    font-size: 11px;
     color: {C['text_muted']};
     background: transparent;
 }}
 
 QLabel#info_val {{
-    font-size: 12px;
-    color: {C['text_primary']};
-    background: transparent;
+    font-size: 11px;
+    color: {C['text_secondary']};
     font-weight: 500;
+    background: transparent;
 }}
 
-/* ── Кнопки ──────────────────────────────────────────────────────────── */
+/* ── Кнопки ───────────────────────────────────────────────────────────── */
 
 QPushButton {{
     border-radius: 8px;
@@ -198,62 +284,74 @@ QPushButton {{
 }}
 
 QPushButton#btn_start {{
-    background-color: {C['success']};
-    color: #ffffff;
-    font-size: 14px;
+    background-color: {C['success_dim']};
+    color: {C['success']};
+    font-size: 13px;
     font-weight: 600;
-    padding: 11px 20px;
-    border-radius: 10px;
+    padding: 9px 20px;
+    border-radius: 8px;
+    border: 1px solid {C['success_border']};
     min-height: 10px;
 }}
 QPushButton#btn_start:hover {{
-    background-color: {C['success_hover']};
+    background-color: #0F2015;
+    border-color: {C['success']};
+    color: {C['success_hover']};
 }}
 QPushButton#btn_start:pressed {{
-    background-color: {C['success']};
+    background-color: {C['success_dim']};
 }}
 QPushButton#btn_start:disabled {{
-    background-color: {C['bg_hover']};
+    background-color: {C['bg_card']};
     color: {C['text_muted']};
+    border-color: {C['border']};
 }}
 
 QPushButton#btn_stop {{
-    background-color: {C['danger']};
-    color: #ffffff;
-    font-size: 14px;
+    background-color: {C['danger_dim']};
+    color: {C['danger']};
+    font-size: 13px;
     font-weight: 600;
-    padding: 11px 20px;
-    border-radius: 10px;
+    padding: 9px 20px;
+    border-radius: 8px;
+    border: 1px solid {C['danger_border']};
     min-height: 10px;
 }}
 QPushButton#btn_stop:hover {{
-    background-color: {C['danger_hover']};
+    background-color: #2A1010;
+    border-color: {C['danger']};
+    color: {C['danger_hover']};
 }}
 QPushButton#btn_stop:pressed {{
-    background-color: {C['danger']};
+    background-color: {C['danger_dim']};
 }}
 QPushButton#btn_stop:disabled {{
-    background-color: {C['bg_hover']};
+    background-color: {C['bg_card']};
     color: {C['text_muted']};
+    border-color: {C['border']};
 }}
 
 QPushButton#btn_primary {{
-    background-color: {C['accent']};
-    color: #ffffff;
+    background-color: {C['accent_dim']};
+    color: {C['accent']};
+    border: 1px solid #1A3A6A;
 }}
 QPushButton#btn_primary:hover {{
-    background-color: {C['accent_hover']};
+    background-color: #0F2545;
+    border-color: {C['accent']};
+    color: {C['accent_hover']};
 }}
 QPushButton#btn_primary:disabled {{
-    background-color: {C['bg_hover']};
+    background-color: {C['bg_card']};
     color: {C['text_muted']};
+    border-color: {C['border']};
 }}
 
 QPushButton#btn_secondary {{
-    background-color: transparent;
+    background-color: {C['bg_card']};
     color: {C['text_secondary']};
     border: 1px solid {C['border']};
-    border-radius: 8px;
+    border-radius: 7px;
     padding: 7px 14px;
     min-height: 32px;
 }}
@@ -263,7 +361,7 @@ QPushButton#btn_secondary:hover {{
     border-color: {C['text_muted']};
 }}
 QPushButton#btn_secondary:pressed {{
-    background-color: {C['bg_card']};
+    background-color: {C['bg_input']};
 }}
 
 QPushButton#btn_icon {{
@@ -276,22 +374,22 @@ QPushButton#btn_icon {{
     min-height: 28px;
     max-height: 28px;
     font-size: 14px;
-    font-weight: 600;
 }}
 QPushButton#btn_icon:hover {{
     background-color: {C['bg_hover']};
     color: {C['text_primary']};
 }}
 
-/* ── Поля ввода ──────────────────────────────────────────────────────── */
+/* ── Поля ввода ───────────────────────────────────────────────────────── */
 
 QLineEdit {{
     background-color: {C['bg_input']};
     border: 1px solid {C['border']};
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: {C['text_primary']};
-    font-size: 13px;
+    border-radius: 7px;
+    padding: 7px 10px;
+    color: {C['text_secondary']};
+    font-size: 12px;
+    font-family: "JetBrains Mono", "Courier New", monospace;
     selection-background-color: {C['accent_dim']};
     selection-color: {C['accent']};
     min-height: 15px;
@@ -299,27 +397,29 @@ QLineEdit {{
 QLineEdit:focus {{
     border-color: {C['border_focus']};
     background-color: {C['bg_card']};
+    color: {C['text_primary']};
 }}
 QLineEdit:disabled {{
     color: {C['text_muted']};
     background-color: {C['bg_window']};
-    border-color: {C['bg_hover']};
+    border-color: {C['border']};
 }}
 
-/* ── Комбобокс ───────────────────────────────────────────────────────── */
+/* ── Комбобокс ────────────────────────────────────────────────────────── */
 
 QComboBox {{
     background-color: {C['bg_input']};
     border: 1px solid {C['border']};
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: {C['text_primary']};
-    font-size: 13px;
-    min-height: 34px;
+    border-radius: 7px;
+    padding: 7px 10px;
+    color: {C['text_secondary']};
+    font-size: 12px;
+    min-height: 32px;
     selection-background-color: transparent;
 }}
 QComboBox:focus {{
     border-color: {C['border_focus']};
+    color: {C['text_primary']};
 }}
 QComboBox:disabled {{
     color: {C['text_muted']};
@@ -336,7 +436,7 @@ QComboBox::down-arrow {{
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 5px solid {C['text_secondary']};
+    border-top: 5px solid {C['text_muted']};
 }}
 QComboBox QAbstractItemView {{
     background-color: {C['bg_card']};
@@ -351,13 +451,14 @@ QComboBox QAbstractItemView {{
 QComboBox QAbstractItemView::item {{
     padding: 8px 12px;
     border-radius: 6px;
-    min-height: 30px;
+    min-height: 28px;
 }}
 QComboBox QAbstractItemView::item:selected {{
     background-color: {C['accent_dim']};
+    color: {C['accent']};
 }}
 
-/* ── Вкладки (правая область) ────────────────────────────────────────── */
+/* ── Вкладки ──────────────────────────────────────────────────────────── */
 
 QTabWidget {{
     background: transparent;
@@ -372,12 +473,13 @@ QTabBar {{
 }}
 QTabBar::tab {{
     background: transparent;
-    color: {C['text_secondary']};
-    padding: 11px 22px;
-    font-size: 13px;
+    color: {C['text_muted']};
+    padding: 13px 20px;
+    font-size: 12px;
     font-weight: 500;
     border: none;
     border-bottom: 2px solid transparent;
+    letter-spacing: 0.2px;
 }}
 QTabBar::tab:selected {{
     color: {C['accent']};
@@ -385,11 +487,11 @@ QTabBar::tab:selected {{
     font-weight: 600;
 }}
 QTabBar::tab:hover:!selected {{
-    color: {C['text_primary']};
+    color: {C['text_secondary']};
     background-color: {C['bg_hover']};
 }}
 
-/* ── Таблица устройств ───────────────────────────────────────────────── */
+/* ── Таблица устройств ────────────────────────────────────────────────── */
 
 QTableWidget {{
     background-color: transparent;
@@ -418,9 +520,9 @@ QHeaderView::section {{
     padding: 10px 14px;
     border: none;
     border-bottom: 1px solid {C['border']};
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
-    letter-spacing: 0.8px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
 }}
 QHeaderView::section:first {{
@@ -430,11 +532,11 @@ QHeaderView::section:last {{
     border-top-right-radius: 10px;
 }}
 
-/* ── Скроллбар ───────────────────────────────────────────────────────── */
+/* ── Скроллбар ────────────────────────────────────────────────────────── */
 
 QScrollBar:vertical {{
     background: transparent;
-    width: 5px;
+    width: 4px;
     border-radius: 2px;
 }}
 QScrollBar::handle:vertical {{
@@ -450,7 +552,7 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
 }}
 QScrollBar:horizontal {{
     background: transparent;
-    height: 5px;
+    height: 4px;
     border-radius: 2px;
 }}
 QScrollBar::handle:horizontal {{
@@ -462,7 +564,7 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {{
     width: 0;
 }}
 
-/* ── QScrollArea ─────────────────────────────────────────────────────── */
+/* ── QScrollArea ──────────────────────────────────────────────────────── */
 
 QScrollArea {{
     background: transparent;
@@ -472,7 +574,7 @@ QScrollArea > QWidget > QWidget {{
     background: transparent;
 }}
 
-/* ── Текстовый редактор (логи) ───────────────────────────────────────── */
+/* ── Текстовый редактор (логи) ────────────────────────────────────────── */
 
 QTextEdit {{
     background-color: {C['bg_card']};
@@ -481,11 +583,12 @@ QTextEdit {{
     color: {C['text_primary']};
     font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", monospace;
     font-size: 12px;
-    padding: 12px;
+    padding: 14px;
     selection-background-color: {C['accent_dim']};
+    line-height: 1.6;
 }}
 
-/* ── Тултипы ─────────────────────────────────────────────────────────── */
+/* ── Тултипы ──────────────────────────────────────────────────────────── */
 
 QToolTip {{
     background-color: {C['bg_card']};
@@ -496,7 +599,7 @@ QToolTip {{
     font-size: 12px;
 }}
 
-/* ── Диалоги ─────────────────────────────────────────────────────────── */
+/* ── Диалоги ──────────────────────────────────────────────────────────── */
 
 QMessageBox {{
     background-color: {C['bg_card']};
