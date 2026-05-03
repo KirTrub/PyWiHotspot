@@ -1,6 +1,6 @@
 import os
 import sys
-
+from core.config import AppConfig
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QHBoxLayout, QTabWidget, QApplication,
 )
@@ -98,6 +98,9 @@ class MonitorThread(QThread):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        self.app_config = AppConfig()
+
         self.setWindowTitle("PyHotspot")
         self.resize(1020, 660)
         self.setStyleSheet(get_stylesheet())
@@ -157,7 +160,8 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot(list, list, bool, str, object)
     def _on_init_ready(self, wifi_ifaces, all_ifaces, active, ip, ast_on):
-                                          
+
+        self.config_panel.load_config(self.app_config)                   
         self.config_panel._combo_iface.clear()
         for iface in wifi_ifaces:
             self.config_panel._combo_iface.addItem(iface)
@@ -206,6 +210,10 @@ class MainWindow(QMainWindow):
     def _start_hotspot(self, ssid, pwd, band, iface, source):
         self.log_widget.log(f"Запуск точки доступа «{ssid}» на {iface}…", "INFO")
         self.config_panel.set_busy(True)
+        self.app_config.set_many(
+        ssid=ssid, password=pwd,
+        band=band, interface=iface, source=source
+        )
         self._active_params = {
             "ssid": ssid, "password": pwd,
             "band": band, "interface": iface,

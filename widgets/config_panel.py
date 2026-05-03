@@ -353,6 +353,23 @@ class ConfigPanel(QFrame):
     def show_error(self, msg: str):
         self._lbl_error.setText(msg)
         self._lbl_error.show()
+        
+    def load_config(self, cfg):
+        self._edit_ssid.setText(cfg.ssid)
+        self._edit_pwd.setText(cfg.password)
+
+        for i, (_, band_val) in enumerate(self._BANDS):
+            if band_val == cfg.band:
+               self._combo_band.setCurrentIndex(i)
+            break
+
+        idx = self._combo_iface.findText(cfg.interface)
+        if idx >= 0:
+            self._combo_iface.setCurrentIndex(idx)
+
+        idx = self._combo_source.findText(cfg.source)
+        if idx >= 0:
+            self._combo_source.setCurrentIndex(idx)
 
     def set_clients_count(self, n: int):
         suffix = "устройство" if n == 1 else (
